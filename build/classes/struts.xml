@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts SYSTEM
+"file:///Users/sunfan314/Documents/workspace/CourseSystem/WebContent/WEB-INF/lib/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="10240000" />
+	<package name="default" namespace="/" extends="json-default">
+		<action name="uploadFile" class="edu.cn.action.teacher.UploadFileAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">40960000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<action name="uploadHomework" class="edu.cn.action.student.UploadHomeworkAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">40960000</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<action name="downloadFile" class="edu.cn.action.student.DownloadFileAction">
+			<result type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+			</result>
+		</action>
+
+		<action name="downloadStudentHomework" class="edu.cn.action.assistant.DownloadFileAction">
+			<result type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+			</result>
+		</action>
+
+		<action name="login">
+			<result>/WEB-INF/content/login/login.jsp</result>
+		</action>
+
+		<action name="studentManage">
+			<result>/WEB-INF/content/admin/studentManage.jsp</result>
+		</action>
+
+		<action name="teacherManage">
+			<result>/WEB-INF/content/admin/teacherManage.jsp</result>
+		</action>
+
+		<action name="courseManage">
+			<result>/WEB-INF/content/admin/courseManage.jsp</result>
+		</action>
+
+		<action name="teacherAllocation">
+			<result>/WEB-INF/content/admin/teacherAllocation.jsp</result>
+		</action>
+
+		<action name="assistantAllocation" class="edu.cn.action.teacher.GetTeacherAction">
+			<result name="success">/WEB-INF/content/teacher/assistantAllocation.jsp
+			</result>
+		</action>
+
+		<action name="courseStudentManage" class="edu.cn.action.teacher.GetTeacherAction">
+			<result name="success">/WEB-INF/content/teacher/courseStudentManage.jsp
+			</result>
+		</action>
+
+		<action name="homeworkManage" class="edu.cn.action.teacher.GetTeacherAction">
+			<result name="success">/WEB-INF/content/teacher/homeworkManage.jsp
+			</result>
+		</action>
+
+		<action name="uploadHomeworkInfo" class="edu.cn.action.teacher.GetTeacherAction">
+			<result name="success">/WEB-INF/content/teacher/uploadHomeworkInfo.jsp
+			</result>
+		</action>
+
+		<action name="checkCorrectedHomework" class="edu.cn.action.teacher.GetTeacherAction">
+			<result name="success">/WEB-INF/content/teacher/checkCorrectedHomework.jsp
+			</result>
+		</action>
+
+		<action name="courseStatistics">
+			<result>/WEB-INF/content/teacherInCharge/courseStatistics.jsp
+			</result>
+		</action>
+
+		<action name="studentCourse" class="edu.cn.action.student.StudentInfoAction">
+			<result name="success">/WEB-INF/content/student/studentCourse.jsp
+			</result>
+		</action>
+
+		<action name="homeworkStatus" class="edu.cn.action.student.StudentInfoAction">
+			<result name="success">/WEB-INF/content/student/homeworkStatus.jsp
+			</result>
+		</action>
+
+		<action name="assistantCourse" class="edu.cn.action.assistant.AssistantInfoAction">
+			<result name="success">/WEB-INF/content/assistant/assistantCourse.jsp
+			</result>
+		</action>
+
+		<action name="courseHomework" class="edu.cn.action.student.CourseHomeworkAction">
+			<result name="success">/WEB-INF/content/student/courseHomework.jsp
+			</result>
+		</action>
+
+		<action name="loginPro" class="edu.cn.action.login.LoginProAction">
+			<result name="admin">/WEB-INF/content/admin/admin.jsp</result>
+			<result name="teacherInCharge">/WEB-INF/content/teacherInCharge/teacherInCharge.jsp
+			</result>
+			<result name="teacher">/WEB-INF/content/teacher/teacher.jsp</result>
+			<result name="assistant">/WEB-INF/content/assistant/assistant.jsp</result>
+			<result name="student">/WEB-INF/content/student/student.jsp</result>
+			<result name="fail">/WEB-INF/content/login/fail.jsp</result>
+		</action>
+
+		<action name="getStudents" class="edu.cn.action.admin.UserAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getTeachers" class="edu.cn.action.admin.UserAction"
+			method="getTeachers">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getCourseInfos" class="edu.cn.action.admin.CourseInfoAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getTeacherCourses" class="edu.cn.action.teacher.TeacherCourseAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getTeacherAssistants" class="edu.cn.action.teacher.CourseInfoAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getCourseList" class="edu.cn.action.admin.CourseAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getCourseTeacherList" class="edu.cn.action.admin.CourseTeacherAction">
+			<result type="json">
+				<param name="root">jsonArray</param>
+			</result>
+		</action>
+
+		<action name="getOtherTeacherList" class="edu.cn.action.admin.CourseTeacherAction"
+			method="getAvailableTeachers">
+			<result type="json">
+				<param name="root">jsonArray</param>
+			</result>
+		</action>
+
+		<action name="getCourseAssistantList" class="edu.cn.action.teacher.CourseAssistantAction">
+			<result type="json">
+				<param name="root">jsonArray</param>
+			</result>
+		</action>
+
+		<action name="getOtherAssistantList" class="edu.cn.action.teacher.CourseAssistantAction"
+			method="getAvailableAssistats">
+			<result type="json">
+				<param name="root">jsonArray</param>
+			</result>
+		</action>
+
+		<action name="getCourseHomework" class="edu.cn.action.teacher.CourseHomeworkAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getCourseStudents" class="edu.cn.action.teacher.CourseStudentAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getHomeworkInfo" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="getHomeworkInfo">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getStudentCourses" class="edu.cn.action.student.StudentCourseAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getHomeworkStatus" class="edu.cn.action.student.HomeworkStatusAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getUnsubmittedHomework" class="edu.cn.action.student.HomeworkStatusAction"
+			method="getUnsubmittedHomework">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getAssistantCourses" class="edu.cn.action.assistant.AssistantCourseAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getSubmittedHomework" class="edu.cn.action.assistant.SubmittedHomeworkAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="getCourseStatistics"
+			class="edu.cn.action.teacherInCharge.CourseStatisticsAction">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addStudent" class="edu.cn.action.admin.UserAction"
+			method="addStudent">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addTeacher" class="edu.cn.action.admin.UserAction"
+			method="addTeacher">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addCourseInfo" class="edu.cn.action.admin.CourseInfoAction"
+			method="addCourseInfo">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addCourseTeacher" class="edu.cn.action.admin.CourseTeacherAction"
+			method="addTeacherToCourse">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addCourseAssistant" class="edu.cn.action.teacher.CourseAssistantAction"
+			method="addCourseAssistant">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+
+		</action>
+
+		<action name="addCourseHomework" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="addCourseHomework">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addCourseStudents" class="edu.cn.action.teacher.CourseStudentAction"
+			method="addCourseStudents">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addHomeworkRequirement" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="addHomeworkRequirement">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="addHomeworkSummary" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="addHomeworkSummary">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="editStudent" class="edu.cn.action.admin.UserAction"
+			method="updateStudent">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="editTeacher" class="edu.cn.action.admin.UserAction"
+			method="updateTeacher">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="editCourseInfo" class="edu.cn.action.admin.CourseInfoAction"
+			method="updateCourseInfo">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="updateSubmitHomeworkInfo" class="edu.cn.action.assistant.SubmittedHomeworkAction"
+			method="updateSubmitHomework">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="editCourseHomework" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="updateCourseHomework">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="deleteUser" class="edu.cn.action.admin.UserAction"
+			method="deleteUser">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="deleteCourseInfo" class="edu.cn.action.admin.CourseInfoAction"
+			method="deleteCourseInfo">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="deleteCourseTeacher" class="edu.cn.action.admin.CourseTeacherAction"
+			method="deleteTeacherFromCourse">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="deleteCourseAssistant" class="edu.cn.action.teacher.CourseAssistantAction"
+			method="deleteCourseAssistant">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="deleteCourseHomework" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="deleteCourseHomework">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="deleteCourseStudents" class="edu.cn.action.teacher.CourseStudentAction"
+			method="deleteCourseStudents">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="publishHomeworkScore" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="publishScore">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="recorrectHomeworkScore" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="recorrectScore">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="isScorePublished" class="edu.cn.action.teacher.CourseHomeworkAction"
+			method="isScorePublished">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="checkHomeworkStatus" class="edu.cn.action.assistant.CorrectHomeworkAction"
+			method="checkHomeworkStatus">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="createCourseExcelFile"
+			class="edu.cn.action.teacherInCharge.CourseStatisticsAction" method="createCourseExcelFile">
+			<result type="json">
+				<param name="root">json</param>
+			</result>
+		</action>
+
+		<action name="*">
+			<result>/WEB-INF/content/{1}.jsp</result>
+		</action>
+	</package>
+
+
+</struts>
